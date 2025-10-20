@@ -1,0 +1,35 @@
+<odoo>
+    <record id="inventory_tree" model="ir.ui.view">
+        <field name="name">inventory tree</field>
+        <field name="model">inventory.custom</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" string="Product Name"/>
+                <field name="product_price" string="Price"/>
+                <field name="sold_quantity" string="Sold Quantity"/>
+                <field name="quantity_available" string="Available Quantity"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="inventory_search" model="ir.ui.view">
+        <field name="name">inventory search</field>
+        <field name="model">inventory.custom</field>
+        <field name="arch" type="xml">
+            <search>
+            </search>
+        </field>
+    </record>
+
+    <record id="inventory_action" model="ir.actions.act_window">
+        <field name="name">Inventory</field>
+        <field name="res_model">inventory.custom</field>
+    </record>
+    <menuitem
+            id="inventory_menu_item"
+            name="Inventory"
+            parent="milk_product_menu"
+            action="inventory_action"
+    />
+
+</odoo>

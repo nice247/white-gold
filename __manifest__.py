@@ -1,0 +1,26 @@
+{
+    'name': 'Nile Dairy & Foods Co.',
+    'version': '1.0',
+    'sequence': -99,
+    'category': '',
+    'summary': '',
+    'description': '',
+    'depends': ['base', 'mail', ],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/sequence.xml',
+        'views/base_menu.xml',
+        'views/sale_order_view.xml',
+        'views/customer_view.xml',
+        'views/inventory_view.xml',
+        'views/product_view.xml',
+        'views/historical_sales_view.xml',
+        'reports/inventory_report_view.xml',
+        'reports/oredes_report_view.xml',
+        'reports/sales_operatios_report_view.xml',
+        'reports/historical_sales_report_view.xml',
+    ],
+    'installable': True,
+    'application': True,
+
+}

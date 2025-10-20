@@ -1,0 +1,296 @@
+<odoo>
+    <record id="historical_sales_summary_report" model="ir.actions.report">
+        <field name="name">Historical Sales Summary Report</field>
+        <field name="model">historical.sales</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="binding_model_id" ref="model_historical_sales"/>
+        <field name="binding_type">report</field>
+        <field name="report_name">white_gold.historical_sales_summary_template</field>
+    </record>
+
+    <template id="historical_sales_summary_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style>
+                    .historical-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin: 20px 0;
+                        font-family: Arial, sans-serif;
+                        table-layout: fixed;
+                    }
+
+                    .historical-table th {
+                        background: #343a40;
+                        color: white;
+                        padding: 12px;
+                        text-align: left;
+                        font-size: 16px;
+                        border: 1px solid #454d55;
+                    }
+
+                    .historical-table td {
+                        padding: 10px;
+                        border: 1px solid #dee2e6;
+                        word-wrap: break-word;
+                    }
+
+                    .historical-table tr:nth-child(even) {
+                        background: #f8f9fa;
+                    }
+
+                    .col-ref {
+                        width: 15%;
+                    }
+
+                    .col-date {
+                        width: 15%;
+                    }
+
+                    .col-customer {
+                        width: 20%;
+                    }
+
+                    .col-products {
+                        width: 20%;
+                    }
+
+                    .col-quantity {
+                        width: 10%;
+                    }
+
+                    .col-amount {
+                        width: 10%;
+                    }
+
+                    .col-archived {
+                        width: 10%;
+                    }
+
+                    .text-center {
+                        text-align: center;
+                    }
+
+                    .text-right {
+                        text-align: right;
+                    }
+
+                    .empty-value {
+                        color: #999;
+                        font-style: italic;
+                    }
+
+                    .report-title {
+                        text-align: left;
+                        font-size: 20px;
+                        font-weight: bold;
+                        margin: 20px 0;
+                    }
+
+                    .company-header {
+                        text-align: left;
+                        margin-bottom: 30px;
+                        padding-bottom: 15px;
+                        border-bottom: 2px solid #007bff;
+                    }
+
+                    .company-name {
+                        font-size: 24px;
+                        font-weight: bold;
+                        color: #007bff;
+                        margin-bottom: 5px;
+                    }
+
+                    .summary-section {
+                        margin-top: 30px;
+                    }
+
+                    .summary-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin: 10px 0;
+                    }
+
+                    .summary-table td {
+                        padding: 8px 10px;
+                        border: 1px solid #dee2e6;
+                    }
+
+                    .summary-label {
+                        background: #f8f9fa;
+                        font-weight: bold;
+                        width: 25%;
+                    }
+
+                    .summary-value {
+                        text-align: center;
+                    }
+
+                    .highlight {
+                        background: #e7f3ff;
+                        font-weight: bold;
+                        color: #007bff;
+                    }
+
+                    .product-list {
+                        font-size: 12px;
+                        color: #666;
+                    }
+
+                    .footer {
+                        margin-top: 40px;
+                        padding-top: 20px;
+                        border-top: 1px solid #ddd;
+                        text-align: center;
+                        color: #6c757d;
+                        font-size: 12px;
+                    }
+                </style>
+
+                <div class="historical-report">
+                    <!-- Company Information -->
+                    <div class="company-header">
+                        <div class="company-name">Nile Dairy and Foods Co.</div>
+                        <div>Al-Niel Complex, Building 12, Office 3</div>
+                        <div>Khartoum, State 121333</div>
+                        <div>Phone: +249902642768</div>
+                        <div>Email: info@niledairy.com</div>
+                    </div>
+
+                    <h1 class="report-title">Historical Sales Summary Report</h1>
+
+                    <!-- Report Generation Info -->
+                    <div style="margin-bottom: 20px; color: #666; font-size: 14px;">
+                        Generated on: <span t-esc="datetime.datetime.now().strftime('%Y-%m-%d at %H:%M:%S')"/>
+                    </div>
+
+                    <!-- Historical Sales Table -->
+                    <table class="historical-table">
+                        <thead>
+                            <tr>
+                                <th class="col-ref">Reference</th>
+                                <th class="col-date">Sale Date</th>
+                                <th class="col-customer">Customer</th>
+                                <th class="col-products">Products</th>
+                                <th class="col-quantity text-center">Total Quantity</th>
+                                <th class="col-amount text-right">Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="sale">
+                                <tr>
+                                    <!-- Reference -->
+                                    <td class="col-ref">
+                                        <t t-if="sale.ref">
+                                            <strong><t t-esc="sale.ref"/></strong>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="empty-value">No Reference</span>
+                                        </t>
+                                    </td>
+
+                                    <!-- Sale Date -->
+                                    <td class="col-date">
+                                        <t t-if="sale.sale_date">
+                                            <t t-esc="sale.sale_date"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="empty-value">No Date</span>
+                                        </t>
+                                    </td>
+
+                                    <!-- Customer -->
+                                    <td class="col-customer">
+                                        <t t-if="sale.customer_name">
+                                            <t t-esc="sale.customer_name"/>
+                                            <t t-if="sale.customer_phone">
+                                                <div style="font-size: 12px; color: #666;">
+                                                    <t t-esc="sale.customer_phone"/>
+                                                </div>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="empty-value">No Customer</span>
+                                        </t>
+                                    </td>
+
+                                    <!-- Products -->
+                                    <td class="col-products">
+                                        <t t-if="sale.sale_line_ids">
+                                            <div class="product-list">
+                                                <t t-foreach="sale.sale_line_ids" t-as="line">
+                                                    <div>
+                                                        • <t t-esc="line.product_code or 'N/A'"/>
+                                                        (Qty: <t t-esc="line.quantity"/>)
+                                                    </div>
+                                                </t>
+                                            </div>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="empty-value">No Products</span>
+                                        </t>
+                                    </td>
+
+                                    <!-- Total Quantity -->
+                                    <td class="col-quantity text-center">
+                                        <t t-if="sale.total_quantity">
+                                            <t t-esc="sale.total_quantity"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="empty-value">0</span>
+                                        </t>
+                                    </td>
+
+                                    <!-- Total Amount -->
+                                    <td class="col-amount text-right">
+                                        <t t-if="sale.total_amount">
+                                            $<t t-esc="'{:.2f}'.format(sale.total_amount)"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="empty-value">$0.00</span>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <!-- Summary Section -->
+                    <div class="summary-section">
+                        <table class="summary-table">
+                            <tr>
+                                <td class="summary-label">Total Historical Sales</td>
+                                <td class="summary-value" t-esc="len(docs)"/>
+                                <td class="summary-label">Total Products Sold</td>
+                                <td class="summary-value">
+                                    <t t-esc="sum(len(sale.sale_line_ids) for sale in docs)"/>
+                                </td>
+                                <td class="summary-label">Total Quantity Sold</td>
+                                <td class="summary-value" t-esc="sum(sale.total_quantity or 0 for sale in docs)"/>
+                            </tr>
+                            <tr>
+                                <td class="summary-label">Total Revenue</td>
+                                <td class="summary-value highlight" colspan="3">
+                                    $<t t-esc="'{:.2f}'.format(sum(sale.total_amount or 0 for sale in docs))"/>
+                                </td>
+                                <td class="summary-label">Average per Sale</td>
+                                <td class="summary-value">
+                                    $<t t-esc="'{:.2f}'.format(sum(sale.total_amount or 0 for sale in docs) / len(docs) if docs else 0)"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="footer">
+                        <p>
+                            Page <span t-esc="env.context.get('report_pagenumber', 1)"/> of
+                            <span t-esc="env.context.get('report_pagecount', 1)"/> |
+                            Nile Dairy and Foods Co. - Historical Sales Report
+                        </p>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

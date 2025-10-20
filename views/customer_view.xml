@@ -1,0 +1,63 @@
+<odoo>
+    <record id="customer_tree" model="ir.ui.view">
+        <field name="name">customer tree</field>
+        <field name="model">customer.custom</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="address"/>
+                <field name="customer_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="customer_form" model="ir.ui.view">
+        <field name="name">customer form</field>
+        <field name="model">customer.custom</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <header>
+                        <field name="customer_type" widget="statusbar"/>
+                    </header>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="email"/>
+                        <field name="phone"/>
+                        <field name="address"/>
+                    </group>
+                    <group>
+                        <field name="customer_type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="customer_search" model="ir.ui.view">
+        <field name="name">customer search</field>
+        <field name="model">customer.custom</field>
+        <field name="arch" type="xml">
+            <search>
+            </search>
+        </field>
+    </record>
+
+    <record id="customer_action" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="res_model">customer.custom</field>
+    </record>
+    <menuitem
+            id="customer_menu_item"
+            name="Customers"
+            parent="milk_product_menu"
+            action="customer_action"
+    />
+
+</odoo>

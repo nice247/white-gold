@@ -1,0 +1,210 @@
+<odoo>
+    <record id="inventory_report" model="ir.actions.report">
+        <field name="name">Inventory Report</field>
+        <field name="model">inventory.custom</field>
+        <field name="report_type">qweb-html</field>
+        <field name="binding_model_id" ref="model_inventory_custom"/>
+        <field name="binding_type">report</field>
+        <field name="report_name">white_gold.inventory_report_template</field>
+    </record>
+
+    <template id="inventory_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style>
+                    .inventory-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                    font-family: Arial, sans-serif;
+                    table-layout: fixed;
+                    }
+
+                    .inventory-table th {
+                    background: #343a40;
+                    color: white;
+                    padding: 12px;
+                    text-align: left;
+                    font-size: 16px;
+                    border: 1px solid #454d55;
+                    }
+
+                    .inventory-table td {
+                    padding: 10px;
+                    border: 1px solid #dee2e6;
+                    word-wrap: break-word;
+                    }
+
+                    .inventory-table tr:nth-child(even) {
+                    background: #f8f9fa;
+                    }
+
+                    .col-product-name {
+                    width: 25%;
+                    }
+
+                    .col-product-code {
+                    width: 20%;
+                    }
+
+                    .col-price {
+                    width: 15%;
+                    }
+
+                    .col-sold {
+                    width: 15%;
+                    }
+
+                    .col-available {
+                    width: 15%;
+                    }
+
+                    .col-unit {
+                    width: 10%;
+                    }
+
+                    .empty-value {
+                    color: #999;
+                    font-style: italic;
+                    }
+
+                    .report-title {
+                    text-align: left;
+                    font-size: 20px;
+                    font-weight: bold;
+                    margin: 20px 0;
+                    }
+
+                    .text-center {
+                    text-align: center;
+                    }
+
+                    .text-right {
+                    text-align: right;
+                    }
+                </style>
+                <div class="company-info">
+                    <div class="company-name">Nile Dairy and Foods Co.</div>
+                    <div>Al-Niel Complex, Building 12, Office 3</div>
+                    <div>Khartoum, State 121333</div>
+                    <div>Phone: +249902642768</div>
+                    <div>Email: info@niledairy.com</div>
+                </div>
+
+
+                <h1 class="report-title">Inventory Report</h1>
+
+                <table class="inventory-table">
+                    <thead>
+                        <tr>
+                            <th class="col-product-name">Product Name</th>
+                            <th class="col-product-code">Product Code</th>
+                            <th class="col-price">Price</th>
+                            <th class="col-sold">Sold Quantity</th>
+                            <th class="col-available">Available Quantity</th>
+                            <th class="col-unit">Unit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="docs" t-as="inventory">
+                            <tr>
+                                <!-- Product Name -->
+                                <td class="col-product-name">
+                                    <t t-if="inventory.name">
+                                        <t t-esc="{'milk': 'Milk', 'cheese': 'Cheese', 'yogurt': 'Yogurt', 'cream': 'Cream', 'butter': 'Butter'}.get(inventory.name, inventory.name)"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="empty-value">No Name</span>
+                                    </t>
+                                </td>
+
+                                <!-- Product Code -->
+                                <td class="col-product-code">
+                                    <t t-if="inventory.product_code">
+                                        <t t-esc="inventory.product_code"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="empty-value">No Code</span>
+                                    </t>
+                                </td>
+
+                                <!-- Price -->
+                                <td class="col-price text-right">
+                                    <t t-if="inventory.product_price">
+                                        $
+                                        <t t-esc="'{:.2f}'.format(inventory.product_price)"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="empty-value">$0.00</span>
+                                    </t>
+                                </td>
+
+                                <!-- Sold Quantity -->
+                                <td class="col-sold text-center">
+                                    <t t-if="inventory.sold_quantity">
+                                        <t t-esc="inventory.sold_quantity"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="empty-value">0</span>
+                                    </t>
+                                </td>
+
+                                <!-- Available Quantity -->
+                                <td class="col-available text-center">
+                                    <t t-if="inventory.quantity_available">
+                                        <t t-esc="inventory.quantity_available"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="empty-value">0</span>
+                                    </t>
+                                </td>
+
+                                <!-- Unit -->
+                                <td class="col-unit text-center">
+                                    <t t-if="inventory.unit">
+                                        <t t-esc="{'kg': 'Kg', 'ib': 'Ib'}.get(inventory.unit, inventory.unit)"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="empty-value">-</span>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+                <!-- Summary Section -->
+                <div class="summary-section" style="margin-top: 30px;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #dee2e6; background: #f8f9fa; font-weight: bold;">
+                                Total Products:
+                            </td>
+                            <td style="padding: 10px; border: 1px solid #dee2e6; text-align: center;">
+                                <t t-esc="len(docs)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #dee2e6; background: #f8f9fa; font-weight: bold;">
+                                Total Sold Quantity:
+                            </td>
+                            <td style="padding: 10px; border: 1px solid #dee2e6; text-align: center;">
+                                <t t-esc="sum(doc.sold_quantity for doc in docs)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #dee2e6; background: #f8f9fa; font-weight: bold;">
+                                Total Available Quantity:
+                            </td>
+                            <td style="padding: 10px; border: 1px solid #dee2e6; text-align: center;">
+                                <t t-esc="sum(doc.quantity_available for doc in docs)"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

@@ -1,0 +1,66 @@
+<odoo>
+    <record id="view_historical_sales_tree" model="ir.ui.view">
+        <field name="name">historical.sales.tree</field>
+        <field name="model">historical.sales</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ref"/>
+                <field name="customer_name"/>
+                <field name="sale_date"/>
+                <field name="total_quantity"/>
+                <field name="total_amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View for Historical Sales -->
+    <record id="view_historical_sales_form" model="ir.ui.view">
+        <field name="name">historical.sales.form</field>
+        <field name="model">historical.sales</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="ref"/>
+                            <field name="sale_date"/>
+                            <field name="customer_name"/>
+                            <field name="customer_email"/>
+                            <field name="customer_phone"/>
+                        </group>
+                        <group>
+                            <field name="total_quantity"/>
+                            <field name="total_amount"/>
+                            <field name="archived_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Products in This Order">
+                            <field name="sale_line_ids" mode="tree">
+                                <tree>
+                                    <field name="product_name"/>
+                                    <field name="product_code"/>
+                                    <field name="quantity"/>
+                                    <field name="unit_price"/>
+                                    <field name="total_amount"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="historical_sales_action" model="ir.actions.act_window">
+        <field name="name">Historical Sales</field>
+        <field name="res_model">historical.sales</field>
+    </record>
+    <menuitem
+            id="historical_sales_menu_item"
+            name="Historical Sales"
+            parent="milk_product_menu"
+            action="historical_sales_action"
+    />
+
+</odoo>

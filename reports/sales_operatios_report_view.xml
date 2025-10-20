@@ -1,0 +1,289 @@
+<odoo>
+    <record id="sale_orders_simple_report" model="ir.actions.report">
+        <field name="name">Sales Orders Report</field>
+        <field name="model">sale.order.custom</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="binding_model_id" ref="model_sale_order_custom"/>
+        <field name="binding_type">report</field>
+        <field name="report_name">white_gold.sale_orders_simple_template</field>
+    </record>
+
+    <template id="sale_orders_simple_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style>
+                    .sales-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin: 20px 0;
+                        font-family: Arial, sans-serif;
+                        table-layout: fixed;
+                    }
+
+                    .sales-table th {
+                        background: #343a40;
+                        color: white;
+                        padding: 12px;
+                        text-align: left;
+                        font-size: 16px;
+                        border: 1px solid #454d55;
+                    }
+
+                    .sales-table td {
+                        padding: 10px;
+                        border: 1px solid #dee2e6;
+                        word-wrap: break-word;
+                    }
+
+                    .sales-table tr:nth-child(even) {
+                        background: #f8f9fa;
+                    }
+
+                    .col-ref {
+                        width: 15%;
+                    }
+
+                    .col-customer {
+                        width: 20%;
+                    }
+
+                    .col-phone {
+                        width: 15%;
+                    }
+
+                    .col-status {
+                        width: 15%;
+                    }
+
+                    .col-date {
+                        width: 15%;
+                    }
+
+                    .col-quantity {
+                        width: 10%;
+                    }
+
+                    .col-amount {
+                        width: 10%;
+                    }
+
+                    .text-center {
+                        text-align: center;
+                    }
+
+                    .text-right {
+                        text-align: right;
+                    }
+
+                    .empty-value {
+                        color: #999;
+                        font-style: italic;
+                    }
+
+                    .report-title {
+                        text-align: left;
+                        font-size: 20px;
+                        font-weight: bold;
+                        margin: 20px 0;
+                    }
+
+                    .company-header {
+                        text-align: left;
+                        margin-bottom: 30px;
+                        padding-bottom: 15px;
+                        border-bottom: 2px solid #007bff;
+                    }
+
+                    .company-name {
+                        font-size: 24px;
+                        font-weight: bold;
+                        color: #007bff;
+                        margin-bottom: 5px;
+                    }
+
+                    .status-badge {
+                        display: inline-block;
+                        padding: 4px 12px;
+                        border-radius: 12px;
+                        font-size: 12px;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                    }
+
+                    .status-draft {
+                        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+                        color: #856404;
+                        border: 1px solid #ffeaa7;
+                    }
+                    .status-done {
+                        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+                        color: white;
+                        border: 1px solid #38d9a9;
+                    }
+                    .status-canceled {
+                        background: linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%);
+                        color: white;
+                        border: 1px solid #ff8787;
+                    }
+
+                    .summary-section {
+                        margin-top: 30px;
+                    }
+
+                    .summary-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin: 10px 0;
+                    }
+
+                    .summary-table td {
+                        padding: 8px 10px;
+                        border: 1px solid #dee2e6;
+                    }
+
+                    .summary-label {
+                        background: #f8f9fa;
+                        font-weight: bold;
+                        width: 25%;
+                    }
+
+                    .summary-value {
+                        text-align: center;
+                    }
+
+                    .highlight {
+                        background: #e7f3ff;
+                        font-weight: bold;
+                        color: #007bff;
+                    }
+
+                    .footer {
+                        margin-top: 40px;
+                        padding-top: 20px;
+                        border-top: 1px solid #ddd;
+                        text-align: center;
+                        color: #6c757d;
+                        font-size: 12px;
+                    }
+                </style>
+
+                <div class="sales-report">
+                    <!-- Company Information -->
+                    <div class="company-header">
+                        <div class="company-name">Nile Dairy and Foods Co.</div>
+                        <div>Al-Niel Complex, Building 12, Office 3</div>
+                        <div>Khartoum, State 121333</div>
+                        <div>Phone: +249902642768</div>
+                        <div>Email: info@niledairy.com</div>
+                    </div>
+
+                    <h1 class="report-title">Sales Orders Report</h1>
+
+                    <!-- Report Generation Info -->
+                    <div style="margin-bottom: 20px; color: #666; font-size: 14px;">
+                        Generated on: <span t-esc="datetime.datetime.now().strftime('%Y-%m-%d at %H:%M:%S')"/>
+                    </div>
+
+                    <!-- Sales Orders Table -->
+                    <table class="sales-table">
+                        <thead>
+                            <tr>
+                                <th class="col-ref">Reference</th>
+                                <th class="col-customer">Customer</th>
+                                <th class="col-phone">Phone</th>
+                                <th class="col-status">Status</th>
+                                <th class="col-date">Operation Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="order">
+                                <tr>
+                                    <!-- Reference -->
+                                    <td class="col-ref">
+                                        <t t-if="order.ref">
+                                            <strong><t t-esc="order.ref"/></strong>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="empty-value">No Reference</span>
+                                        </t>
+                                    </td>
+
+                                    <!-- Customer -->
+                                    <td class="col-customer">
+                                        <t t-if="order.customer_id and order.customer_id.name">
+                                            <t t-esc="order.customer_id.name"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="empty-value">No Customer</span>
+                                        </t>
+                                    </td>
+
+                                    <!-- Phone -->
+                                    <td class="col-phone">
+                                        <t t-if="order.customer_phone">
+                                            <t t-esc="order.customer_phone"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="empty-value">No Phone</span>
+                                        </t>
+                                    </td>
+
+                                    <!-- Status -->
+                                    <td class="col-status">
+                                        <t t-if="order.state">
+                                            <span t-attf-class="status-badge status-{{ order.state }}">
+                                                <t t-esc="{'draft': 'Draft', 'done': 'Completed', 'canceled': 'Canceled'}.get(order.state, order.state)"/>
+                                            </span>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="empty-value">No Status</span>
+                                        </t>
+                                    </td>
+
+                                    <!-- Operation Date -->
+                                    <td class="col-date">
+                                        <t t-if="order.sale_date">
+                                            <t t-esc="order.sale_date"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="empty-value">No Date</span>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <!-- Summary Section -->
+                    <div class="summary-section">
+                        <table class="summary-table">
+                            <tr>
+                                <td class="summary-label">Total Orders</td>
+                                <td class="summary-value" t-esc="len(docs)"/>
+                                <td class="summary-label">Draft Orders</td>
+                                <td class="summary-value" t-esc="len([order for order in docs if order.state == 'draft'])"/>
+                                <td class="summary-label">Completed Orders</td>
+                                <td class="summary-value" t-esc="len([order for order in docs if order.state == 'done'])"/>
+                            </tr>
+                            <tr>
+                                <td class="summary-label">Canceled Orders</td>
+                                <td class="summary-value" t-esc="len([order for order in docs if order.state == 'canceled'])"/>
+                                <td class="summary-label">Total Quantity</td>
+                                <td class="summary-value" t-esc="sum(order.total_quantity or 0 for order in docs)"/>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="footer">
+                        <p>
+                            Page <span t-esc="env.context.get('report_pagenumber', 1)"/> of
+                            <span t-esc="env.context.get('report_pagecount', 1)"/> |
+                            Nile Dairy and Foods Co. - Sales Orders Report
+                        </p>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="whit_gold_root_menu"
+        name="Nile Dairy and Foods Co."
+    />
+    <menuitem
+        id="milk_product_menu"
+        name="Lists"
+        parent="whit_gold_root_menu"
+    />
+</odoo>

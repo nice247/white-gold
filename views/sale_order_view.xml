@@ -1,0 +1,76 @@
+<odoo>
+    <record id="sale_order_tree" model="ir.ui.view">
+        <field name="name">sale tree</field>
+        <field name="model">sale.order.custom</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ref"/>
+                <field name="customer_id"/>
+                <field name="customer_phone"/>
+                <field name="state"/>
+                <field name="sale_date" string="Operation date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sale_order_form" model="ir.ui.view">
+        <field name="name">sale order form</field>
+        <field name="model">sale.order.custom</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                      <header>
+                        <button name="action_cancel" type="object" class="btn-primary" string="Cancel "
+                        invisible="state in ('done', 'canceled')"/>
+                        <button name="action_done" type="object" class="btn-success" string="Success"
+                        invisible="state in ('done', 'canceled')"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <div class="oe_title">
+                        <label for="ref"/>
+                        <h1>
+                            <field name="ref" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="customer_id" readonly="state in ('done', 'canceled')"/>
+                        <field name="customer_phone" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Purchase">
+                            <field name="order_lines" readonly="state in ('done', 'canceled')">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="product_price"/>
+                                    <field name="quantity"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_order_search" model="ir.ui.view">
+        <field name="name">sale order search</field>
+        <field name="model">sale.order.custom</field>
+        <field name="arch" type="xml">
+            <search>
+            </search>
+        </field>
+    </record>
+
+    <record id="sale_order_action" model="ir.actions.act_window">
+        <field name="name">Sales Operations</field>
+        <field name="res_model">sale.order.custom</field>
+    </record>
+    <menuitem
+            id="sale_order_menu_item"
+            name="Sales Orders"
+            parent="milk_product_menu"
+            action="sale_order_action"
+    />
+
+</odoo>
