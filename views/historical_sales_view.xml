@@ -3,7 +3,7 @@
         <field name="name">historical.sales.tree</field>
         <field name="model">historical.sales</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree create="false" delete="false">
                 <header>
                     <button name="action_export_sales_csv" string="Export Sales CSV" type="object"
                             class="btn-primary"/>
@@ -23,7 +23,7 @@
         <field name="name">historical.sales.form</field>
         <field name="model">historical.sales</field>
         <field name="arch" type="xml">
-            <form>
+            <form create="false" delete="false">
                 <sheet>
                     <group>
                         <group>

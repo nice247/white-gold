@@ -45,6 +45,9 @@
         <field name="model">customer.custom</field>
         <field name="arch" type="xml">
             <search>
+                <filter name="customer_type" string="Retail Customers" domain="[('customer_type', '=', 'retail')]"/>
+                <filter name="customer_type" string="Wholesale Customers" domain="[('customer_type', '=', 'wholesale')]"/>
+                <filter name="customer_type" string="Companies Customers" domain="[('customer_type', '=', 'company')]"/>
             </search>
         </field>
     </record>

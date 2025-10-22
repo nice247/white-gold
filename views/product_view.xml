@@ -48,6 +48,7 @@
         <field name="model">product.custom</field>
         <field name="arch" type="xml">
             <search>
+                <filter name="is_expired" string="Expired Products" domain="[('is_expired', '=', True)]"/>
             </search>
         </field>
     </record>

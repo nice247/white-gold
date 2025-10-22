@@ -6,21 +6,4 @@
               action="nile_dairy_dashboard_action"/>
 
 
-    <menuitem id="sales_management_menu" name="Sales Management" parent="nile_dairy_root_menu" sequence="2"/>
-
-    <menuitem id="sale_order_menu_item" name="Sales Orders" sequence="1" parent="sales_management_menu"
-              action="sale_order_action"/>
-    <menuitem id="customer_menu_item" name="Customers" sequence="2" parent="sales_management_menu"
-              action="customer_action"/>
-    <menuitem id="historical_sales_menu_item" name="Invoices" sequence="3" parent="sales_management_menu"
-              action="historical_sales_action"/>
-
-
-    <menuitem id="product_management_menu" name="Product Management" parent="nile_dairy_root_menu" sequence="3"/>
-
-    <menuitem id="product_menu_item" name="Products" sequence="1" parent="product_management_menu"
-              action="product_action"/>
-    <menuitem id="inventory_menu_item" name="Inventory" sequence="2" parent="product_management_menu"
-              action="inventory_action"/>
-
 </odoo>
