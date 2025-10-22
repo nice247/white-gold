@@ -4,6 +4,10 @@
         <field name="model">inventory.custom</field>
         <field name="arch" type="xml">
             <tree>
+                <header>
+                    <button name="action_export_inventory_csv" string="Export Inventory CSV" type="object"
+                            class="btn-primary"/>
+                </header>
                 <field name="name" string="Product Name"/>
                 <field name="product_price" string="Price"/>
                 <field name="sold_quantity" string="Sold Quantity"/>
@@ -25,11 +29,4 @@
         <field name="name">Inventory</field>
         <field name="res_model">inventory.custom</field>
     </record>
-    <menuitem
-            id="inventory_menu_item"
-            name="Inventory"
-            parent="milk_product_menu"
-            action="inventory_action"
-    />
-
 </odoo>

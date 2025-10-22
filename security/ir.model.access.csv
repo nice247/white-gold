@@ -1,7 +1,8 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_nile_dairy_dashboard,access_nile_dairy_dashboard,model_nile_dairy_dashboard,,1,0,0,0
 access_customer_custom,access_customer_custom,model_customer_custom,,1,1,1,1
 access_product_custom,access_product_custom,model_product_custom,,1,1,1,1
-access_inventory_custom,access_inventory_custom,model_inventory_custom,,1,1,0,1
+access_inventory_custom,access_inventory_custom,model_inventory_custom,,1,1,0,0
 access_sale_order_custom,access_sale_order_custom,model_sale_order_custom,,1,1,1,1
 access_sale_lines,access_sale_lines,model_sale_lines,,1,1,1,1
 access_historical_sales,access_historical_sales,model_historical_sales,,1,1,1,1

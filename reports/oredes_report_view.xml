@@ -13,137 +13,137 @@
             <t t-call="web.external_layout">
                 <style>
                     .invoice-report {
-                        font-family: Arial, sans-serif;
-                        line-height: 1.6;
-                        color: #333;
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    color: #333;
                     }
 
                     .invoice-header {
-                        margin-bottom: 30px;
-                        padding-bottom: 15px;
-                        border-bottom: 2px solid #007bff;
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: flex-start;
+                    margin-bottom: 30px;
+                    padding-bottom: 15px;
+                    border-bottom: 2px solid #007bff;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
                     }
 
                     .invoice-info {
-                        flex-grow: 1;
+                    flex-grow: 1;
                     }
 
                     .invoice-details {
-                        margin-bottom: 25px;
+                    margin-bottom: 25px;
                     }
 
                     .detail-item {
-                        margin-bottom: 10px;
-                        display: flex;
+                    margin-bottom: 10px;
+                    display: flex;
                     }
 
                     .detail-label {
-                        font-weight: bold;
-                        width: 140px;
-                        flex-shrink: 0;
+                    font-weight: bold;
+                    width: 140px;
+                    flex-shrink: 0;
                     }
 
                     .detail-value {
-                        flex-grow: 1;
+                    flex-grow: 1;
                     }
 
                     .products-table {
-                        width: 100%;
-                        border-collapse: collapse;
-                        margin: 25px 0;
-                        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 25px 0;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
                     }
 
                     .products-table th {
-                        background: #343a40;
-                        color: white;
-                        padding: 12px;
-                        text-align: left;
-                        border: 1px solid #454d55;
-                        font-weight: bold;
+                    background: #343a40;
+                    color: white;
+                    padding: 12px;
+                    text-align: left;
+                    border: 1px solid #454d55;
+                    font-weight: bold;
                     }
 
                     .products-table td {
-                        padding: 10px;
-                        border: 1px solid #dee2e6;
+                    padding: 10px;
+                    border: 1px solid #dee2e6;
                     }
 
                     .products-table tr:nth-child(even) {
-                        background: #f8f9fa;
+                    background: #f8f9fa;
                     }
 
                     .products-table .center {
-                        text-align: center;
+                    text-align: center;
                     }
 
                     .products-table .right {
-                        text-align: right;
+                    text-align: right;
                     }
 
                     .total-row {
-                        background: #e9ecef !important;
-                        font-weight: bold;
-                        border-top: 2px solid #495057;
+                    background: #e9ecef !important;
+                    font-weight: bold;
+                    border-top: 2px solid #495057;
                     }
 
                     .summary-section {
-                        background: #e7f3ff;
-                        padding: 15px;
-                        border-radius: 5px;
-                        margin: 20px 0;
-                        border-left: 4px solid #007bff;
+                    background: #e7f3ff;
+                    padding: 15px;
+                    border-radius: 5px;
+                    margin: 20px 0;
+                    border-left: 4px solid #007bff;
                     }
 
                     .summary-item {
-                        display: inline-block;
-                        margin-right: 30px;
-                        font-weight: bold;
-                        font-size: 16px;
+                    display: inline-block;
+                    margin-right: 30px;
+                    font-weight: bold;
+                    font-size: 16px;
                     }
 
                     .footer {
-                        margin-top: 40px;
-                        padding-top: 20px;
-                        border-top: 1px solid #ddd;
-                        text-align: center;
-                        color: #6c757d;
-                        font-size: 12px;
+                    margin-top: 40px;
+                    padding-top: 20px;
+                    border-top: 1px solid #ddd;
+                    text-align: center;
+                    color: #6c757d;
+                    font-size: 12px;
                     }
 
                     .company-info {
-                        text-align: left;
-                        margin-bottom: 20px;
+                    text-align: left;
+                    margin-bottom: 20px;
                     }
 
                     .company-name {
-                        font-size: 24px;
-                        font-weight: bold;
-                        color: #007bff;
-                        margin-bottom: 5px;
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: #007bff;
+                    margin-bottom: 5px;
                     }
 
                     .invoice-title {
-                        font-size: 28px;
-                        font-weight: bold;
-                        color: #343a40;
-                        margin: 0;
+                    font-size: 28px;
+                    font-weight: bold;
+                    color: #343a40;
+                    margin: 0;
                     }
 
                     .customer-section {
-                        background: #f8f9fa;
-                        padding: 20px;
-                        border-radius: 5px;
-                        margin: 20px 0;
-                        border-left: 4px solid #28a745;
+                    background: #f8f9fa;
+                    padding: 20px;
+                    border-radius: 5px;
+                    margin: 20px 0;
+                    border-left: 4px solid #28a745;
                     }
 
                     .customer-title {
-                        color: #28a745;
-                        margin-top: 0;
-                        font-size: 18px;
+                    color: #28a745;
+                    margin-top: 0;
+                    font-size: 18px;
                     }
                 </style>
 
@@ -160,14 +160,9 @@
                     <!-- Invoice Header -->
                     <div class="invoice-header">
                         <div class="invoice-info">
-                            <h1 class="invoice-title">SALE INVOICE</h1>
                             <div class="detail-item">
                                 <span class="detail-label">Invoice No:</span>
                                 <span class="detail-value" t-esc="docs[0].ref"/>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Sale Date:</span>
-                                <span class="detail-value" t-esc="docs[0].sale_date"/>
                             </div>
                         </div>
                     </div>
@@ -193,7 +188,8 @@
                     <table class="products-table">
                         <thead>
                             <tr>
-                                <th colspan="6" style="text-align: center; background: #495057; font-size: 16px; color: white;">
+                                <th colspan="6"
+                                    style="text-align: center; background: #495057; font-size: 16px; color: white;">
                                     PRODUCTS DETAILS
                                 </th>
                             </tr>
@@ -230,7 +226,9 @@
 
                             <!-- Total Rows -->
                             <tr class="total-row">
-                                <td colspan="3" style="text-align: right;"><strong>Subtotal:</strong></td>
+                                <td colspan="3" style="text-align: right;">
+                                    <strong>Subtotal:</strong>
+                                </td>
                                 <td class="center" t-esc="docs[0].total_quantity"/>
                                 <td></td>
                                 <td class="right">
@@ -238,9 +236,12 @@
                                 </td>
                             </tr>
                             <tr class="total-row">
-                                <td colspan="5" style="text-align: right;"><strong>Total Amount:</strong></td>
+                                <td colspan="5" style="text-align: right;">
+                                    <strong>Total Amount:</strong>
+                                </td>
                                 <td class="right">
-                                    <strong style="font-size: 18px; color: #007bff;" t-esc="'$%.2f' % (docs[0].total_amount or 0)"/>
+                                    <strong style="font-size: 18px; color: #007bff;"
+                                            t-esc="'$%.2f' % (docs[0].total_amount or 0)"/>
                                 </td>
                             </tr>
                         </tbody>
@@ -249,21 +250,29 @@
                     <!-- Summary Section -->
                     <div class="summary-section">
                         <span class="summary-item">
-                            Total Products: <span t-esc="len(sale_lines)"/>
+                            Total Products:
+                            <span t-esc="len(sale_lines)"/>
                         </span>
                         <span class="summary-item">
-                            Total Quantity: <span t-esc="docs[0].total_quantity"/>
+                            Total Quantity:
+                            <span t-esc="docs[0].total_quantity"/>
                         </span>
                         <span class="summary-item">
-                            Total Amount: <span t-esc="'$%.2f' % (docs[0].total_amount or 0)"/>
+                            Total Amount:
+                            <span t-esc="'$%.2f' % (docs[0].total_amount or 0)"/>
                         </span>
                     </div>
 
                     <!-- Footer -->
                     <div class="footer">
                         <p>
-                            Invoice generated on <span t-esc="datetime.datetime.now().strftime('%Y-%m-%d at %H:%M')"/> |
-                            Page <span t-esc="env.context.get('report_pagenumber', 1)"/> of <span t-esc="env.context.get('report_pagecount', 1)"/>
+                            Invoice generated on
+                            <span t-esc="datetime.datetime.now().strftime('%Y-%m-%d at %H:%M')"/>
+                            |
+                            Page
+                            <span t-esc="env.context.get('report_pagenumber', 1)"/>
+                            of
+                            <span t-esc="env.context.get('report_pagecount', 1)"/>
                         </p>
                         <p>Thank you for your business! | White Gold Company</p>
                         <p style="margin-top: 10px; font-size: 10px;">

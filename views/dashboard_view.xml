@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_dashboard_form" model="ir.ui.view">
+        <field name="name">nile.dairy.dashboard</field>
+        <field name="model">nile.dairy.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="Nile Dairy" class="o_form_view o_dashboard_view" create="false" delete="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1 style="text-align:center;">🏭 Nile Dairy Management</h1>
+                    </div>
+                    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin-top:30px;">
+
+                        <button name="%(sale_order_action)d" type="action" class="oe_highlight"
+                                style="width:200px; height:80px; font-size:16px;">
+                            🧾 Sales Orders
+                        </button>
+
+                        <button name="%(customer_action)d" type="action"
+                                style="width:200px; height:80px; font-size:16px;">
+                            👥 Customers
+                        </button>
+
+                        <button name="%(historical_sales_action)d" type="action"
+                                style="width:200px; height:80px; font-size:16px;">
+                            💰 Invoices
+                        </button>
+
+                        <button name="%(product_action)d" type="action"
+                                style="width:200px; height:80px; font-size:16px;">
+                            📦 Products
+                        </button>
+
+                        <button name="%(inventory_action)d" type="action"
+                                style="width:200px; height:80px; font-size:16px;">
+                            🏭 Inventory
+                        </button>
+
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="nile_dairy_dashboard_action" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">nile.dairy.dashboard</field>
+        <field name="res_id" eval="1"/>
+    </record>
+
+</odoo>

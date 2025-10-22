@@ -3,13 +3,14 @@
         <field name="name">product tree</field>
         <field name="model">product.custom</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-danger="(is_expired)">
                 <field name="product_code"/>
                 <field name="name"/>
                 <field name="production_date"/>
                 <field name="expiration_date"/>
                 <field name="product_price"/>
                 <field name="unit"/>
+                <field name="is_expired" invisible="True"/>
             </tree>
         </field>
     </record>
@@ -20,20 +21,22 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <div class="oe_title">
-                        <label for="name" string="Item Code"/>
-                        <h1>
-                            <field name="inventory_id"/>
-                        </h1>
-                    </div>
                     <group>
-                        <field name="name"/>
-                        <field name="product_price"/>
-                        <field name="unit"/>
-                    </group>
-                    <group>
-                        <field name="production_date"/>
-                        <field name="expiration_date"/>
+                        <div class="oe_title">
+                            <label for="name" string="Item Code"/>
+                            <h1>
+                                <field name="inventory_id"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="production_date"/>
+                            <field name="expiration_date"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+                            <field name="product_price"/>
+                            <field name="unit"/>
+                        </group>
                     </group>
                 </sheet>
             </form>
@@ -49,15 +52,18 @@
         </field>
     </record>
 
+    <record id="expired_date" model="ir.cron">
+        <field name="name">Expiration Date</field>
+        <field name="model_id" ref="model_product_custom"/>
+        <field name="state">code</field>
+        <field name="code">model._check_expire_date()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+    </record>
+
     <record id="product_action" model="ir.actions.act_window">
         <field name="name">Products</field>
         <field name="res_model">product.custom</field>
     </record>
-    <menuitem
-            id="product_menu_item"
-            name="Products"
-            parent="milk_product_menu"
-            action="product_action"
-    />
-
 </odoo>

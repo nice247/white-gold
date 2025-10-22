@@ -66,11 +66,5 @@
         <field name="name">Sales Operations</field>
         <field name="res_model">sale.order.custom</field>
     </record>
-    <menuitem
-            id="sale_order_menu_item"
-            name="Sales Orders"
-            parent="milk_product_menu"
-            action="sale_order_action"
-    />
 
 </odoo>

@@ -13,157 +13,157 @@
             <t t-call="web.external_layout">
                 <style>
                     .sales-table {
-                        width: 100%;
-                        border-collapse: collapse;
-                        margin: 20px 0;
-                        font-family: Arial, sans-serif;
-                        table-layout: fixed;
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                    font-family: Arial, sans-serif;
+                    table-layout: fixed;
                     }
 
                     .sales-table th {
-                        background: #343a40;
-                        color: white;
-                        padding: 12px;
-                        text-align: left;
-                        font-size: 16px;
-                        border: 1px solid #454d55;
+                    background: #343a40;
+                    color: white;
+                    padding: 12px;
+                    text-align: left;
+                    font-size: 16px;
+                    border: 1px solid #454d55;
                     }
 
                     .sales-table td {
-                        padding: 10px;
-                        border: 1px solid #dee2e6;
-                        word-wrap: break-word;
+                    padding: 10px;
+                    border: 1px solid #dee2e6;
+                    word-wrap: break-word;
                     }
 
                     .sales-table tr:nth-child(even) {
-                        background: #f8f9fa;
+                    background: #f8f9fa;
                     }
 
                     .col-ref {
-                        width: 15%;
+                    width: 15%;
                     }
 
                     .col-customer {
-                        width: 20%;
+                    width: 20%;
                     }
 
                     .col-phone {
-                        width: 15%;
+                    width: 15%;
                     }
 
                     .col-status {
-                        width: 15%;
+                    width: 15%;
                     }
 
                     .col-date {
-                        width: 15%;
+                    width: 15%;
                     }
 
                     .col-quantity {
-                        width: 10%;
+                    width: 10%;
                     }
 
                     .col-amount {
-                        width: 10%;
+                    width: 10%;
                     }
 
                     .text-center {
-                        text-align: center;
+                    text-align: center;
                     }
 
                     .text-right {
-                        text-align: right;
+                    text-align: right;
                     }
 
                     .empty-value {
-                        color: #999;
-                        font-style: italic;
+                    color: #999;
+                    font-style: italic;
                     }
 
                     .report-title {
-                        text-align: left;
-                        font-size: 20px;
-                        font-weight: bold;
-                        margin: 20px 0;
+                    text-align: left;
+                    font-size: 20px;
+                    font-weight: bold;
+                    margin: 20px 0;
                     }
 
                     .company-header {
-                        text-align: left;
-                        margin-bottom: 30px;
-                        padding-bottom: 15px;
-                        border-bottom: 2px solid #007bff;
+                    text-align: left;
+                    margin-bottom: 30px;
+                    padding-bottom: 15px;
+                    border-bottom: 2px solid #007bff;
                     }
 
                     .company-name {
-                        font-size: 24px;
-                        font-weight: bold;
-                        color: #007bff;
-                        margin-bottom: 5px;
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: #007bff;
+                    margin-bottom: 5px;
                     }
 
                     .status-badge {
-                        display: inline-block;
-                        padding: 4px 12px;
-                        border-radius: 12px;
-                        font-size: 12px;
-                        font-weight: bold;
-                        text-transform: uppercase;
+                    display: inline-block;
+                    padding: 4px 12px;
+                    border-radius: 12px;
+                    font-size: 12px;
+                    font-weight: bold;
+                    text-transform: uppercase;
                     }
 
                     .status-draft {
-                        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-                        color: #856404;
-                        border: 1px solid #ffeaa7;
+                    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+                    color: #856404;
+                    border: 1px solid #ffeaa7;
                     }
                     .status-done {
-                        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-                        color: white;
-                        border: 1px solid #38d9a9;
+                    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+                    color: white;
+                    border: 1px solid #38d9a9;
                     }
                     .status-canceled {
-                        background: linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%);
-                        color: white;
-                        border: 1px solid #ff8787;
+                    background: linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%);
+                    color: white;
+                    border: 1px solid #ff8787;
                     }
 
                     .summary-section {
-                        margin-top: 30px;
+                    margin-top: 30px;
                     }
 
                     .summary-table {
-                        width: 100%;
-                        border-collapse: collapse;
-                        margin: 10px 0;
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 10px 0;
                     }
 
                     .summary-table td {
-                        padding: 8px 10px;
-                        border: 1px solid #dee2e6;
+                    padding: 8px 10px;
+                    border: 1px solid #dee2e6;
                     }
 
                     .summary-label {
-                        background: #f8f9fa;
-                        font-weight: bold;
-                        width: 25%;
+                    background: #f8f9fa;
+                    font-weight: bold;
+                    width: 25%;
                     }
 
                     .summary-value {
-                        text-align: center;
+                    text-align: center;
                     }
 
                     .highlight {
-                        background: #e7f3ff;
-                        font-weight: bold;
-                        color: #007bff;
+                    background: #e7f3ff;
+                    font-weight: bold;
+                    color: #007bff;
                     }
 
                     .footer {
-                        margin-top: 40px;
-                        padding-top: 20px;
-                        border-top: 1px solid #ddd;
-                        text-align: center;
-                        color: #6c757d;
-                        font-size: 12px;
+                    margin-top: 40px;
+                    padding-top: 20px;
+                    border-top: 1px solid #ddd;
+                    text-align: center;
+                    color: #6c757d;
+                    font-size: 12px;
                     }
                 </style>
 
@@ -181,7 +181,8 @@
 
                     <!-- Report Generation Info -->
                     <div style="margin-bottom: 20px; color: #666; font-size: 14px;">
-                        Generated on: <span t-esc="datetime.datetime.now().strftime('%Y-%m-%d at %H:%M:%S')"/>
+                        Generated on:
+                        <span t-esc="datetime.datetime.now().strftime('%Y-%m-%d at %H:%M:%S')"/>
                     </div>
 
                     <!-- Sales Orders Table -->
@@ -201,7 +202,9 @@
                                     <!-- Reference -->
                                     <td class="col-ref">
                                         <t t-if="order.ref">
-                                            <strong><t t-esc="order.ref"/></strong>
+                                            <strong>
+                                                <t t-esc="order.ref"/>
+                                            </strong>
                                         </t>
                                         <t t-else="">
                                             <span class="empty-value">No Reference</span>
@@ -261,15 +264,16 @@
                                 <td class="summary-label">Total Orders</td>
                                 <td class="summary-value" t-esc="len(docs)"/>
                                 <td class="summary-label">Draft Orders</td>
-                                <td class="summary-value" t-esc="len([order for order in docs if order.state == 'draft'])"/>
-                                <td class="summary-label">Completed Orders</td>
-                                <td class="summary-value" t-esc="len([order for order in docs if order.state == 'done'])"/>
+                                <td class="summary-value"
+                                    t-esc="len([order for order in docs if order.state == 'draft'])"/>
                             </tr>
                             <tr>
                                 <td class="summary-label">Canceled Orders</td>
-                                <td class="summary-value" t-esc="len([order for order in docs if order.state == 'canceled'])"/>
-                                <td class="summary-label">Total Quantity</td>
-                                <td class="summary-value" t-esc="sum(order.total_quantity or 0 for order in docs)"/>
+                                <td class="summary-value"
+                                    t-esc="len([order for order in docs if order.state == 'canceled'])"/>
+                                <td class="summary-label">Completed Orders</td>
+                                <td class="summary-value"
+                                    t-esc="len([order for order in docs if order.state == 'done'])"/>
                             </tr>
                         </table>
                     </div>
@@ -277,8 +281,11 @@
                     <!-- Footer -->
                     <div class="footer">
                         <p>
-                            Page <span t-esc="env.context.get('report_pagenumber', 1)"/> of
-                            <span t-esc="env.context.get('report_pagecount', 1)"/> |
+                            Page
+                            <span t-esc="env.context.get('report_pagenumber', 1)"/>
+                            of
+                            <span t-esc="env.context.get('report_pagecount', 1)"/>
+                            |
                             Nile Dairy and Foods Co. - Sales Orders Report
                         </p>
                     </div>
