@@ -161,15 +161,14 @@ class SaleOrder(models.Model):
 
             order.state = 'done'
 
-            # حفظ السجلات التاريخية
             order._archive_sales_to_history(order)
 
-            # تحديث المخزون
+
             inventory_records = self.env['inventory.custom'].search([])
             for inventory in inventory_records:
                 inventory._compute_quantities()
 
-            # حذف المنتجات المباعة
+
             for line in order.order_lines:
                 product = line.product_id
                 qty = int(line.quantity)
@@ -184,16 +183,14 @@ class SaleOrder(models.Model):
                 if custom_records:
                     custom_records.unlink()
 
-            # تحديث المخزون النهائي
+
             inventory_records = self.env['inventory.custom'].search([])
             for inventory in inventory_records:
                 inventory._compute_quantities()
 
     def _archive_sales_to_history(self, order):
-        """Save sale records to historical sales - one record per sale order"""
         try:
             invoice_ref = self.env['ir.sequence'].next_by_code('historical.sales.invoice') or f"INV-{order.ref}"
-            # إنشاء السجل التاريخي الرئيسي
             historical_sale = self.env['historical.sales'].create({
                 'ref': invoice_ref,
                 'sale_order_ref': order.ref,
@@ -203,7 +200,7 @@ class SaleOrder(models.Model):
                 'customer_phone': order.customer_id.phone,
             })
 
-            # إنشاء سطور المنتجات المرتبطة
+
             for line in order.order_lines:
                 self.env['historical.sale.lines'].create({
                     'historical_sale_id': historical_sale.id,
@@ -214,7 +211,6 @@ class SaleOrder(models.Model):
                     'total_amount': line.amount,
                 })
 
-            # إعادة حساب التوتالز
             historical_sale._compute_totals()
 
             return historical_sale
@@ -226,9 +222,7 @@ class SaleOrder(models.Model):
     @api.model
     def create(self, vals):
         if vals.get('ref', 'New') == 'New':
-            # استخدام التسلسل sale_seq من XML
             vals['ref'] = self.env['ir.sequence'].next_by_code('sale_seq') or 'New'
-            print(f"🎯 Created sale order with ref: {vals['ref']}")
         return super(SaleOrder, self).create(vals)
 
 
@@ -293,13 +287,6 @@ class HistoricalSales(models.Model):
             'target': 'self',
         }
 
-    def action_export_detailed_sales_csv(self):
-        return {
-            'type': 'ir.actions.act_url',
-            'url': '/web/export/detailed_sales_csv',
-            'target': 'self',
-        }
-
     @api.depends('sale_line_ids.quantity', 'sale_line_ids.total_amount')
     def _compute_totals(self):
         for record in self:
@@ -343,13 +330,11 @@ class CSVExportController(http.Controller):
             output = io.StringIO()
             writer = csv.writer(output)
 
-            # Write CSV header
             writer.writerow([
                 'Product Code', 'Product Name', 'Product Price',
                 'Unit', 'Available Quantity', 'Sold Quantity', 'Created Date'
             ])
 
-            # Get inventory data
             inventory_records = request.env['inventory.custom'].search([])
 
             for record in inventory_records:
@@ -377,4 +362,52 @@ class CSVExportController(http.Controller):
                 ]
             )
         except Exception as e:
+            return request.make_response("Error during export", headers=[('Content-Type', 'text/plain')])
+
+    @http.route('/web/export/sales_csv', type='http', auth="user")
+    def export_sales_csv(self, **kwargs):
+        try:
+            output = io.StringIO()
+            writer = csv.writer(output)
+
+            # Sales orders header
+            writer.writerow([
+                'Reference', 'Customer Name', 'Customer Type', 'Sale Date',
+                'Status', 'Total Amount', 'Total Quantity', 'Customer Phone'
+            ])
+
+            sales_records = request.env['sale.order.custom'].search([])
+
+            for record in sales_records:
+                customer_type = ''
+                if record.customer_id and record.customer_id.customer_type:
+                    customer_type = dict(record.customer_id._fields['customer_type'].selection).get(
+                        record.customer_id.customer_type)
+
+                writer.writerow([
+                    record.ref or '',
+                    record.customer_id.name if record.customer_id else '',
+                    customer_type,
+                    record.sale_date.strftime('%Y-%m-%d %H:%M:%S') if record.sale_date else '',
+                    record.state,
+                    record.total_amount or 0,
+                    record.total_quantity or 0,
+                    record.customer_phone or ''
+                ])
+
+            output.seek(0)
+            csv_data = output.getvalue()
+            output.close()
+
+            filename = 'sales_report_{}.csv'.format(datetime.now().strftime("%Y%m%d_%H%M%S"))
+
+            return request.make_response(
+                csv_data,
+                headers=[
+                    ('Content-Type', 'text/csv'),
+                    ('Content-Disposition', content_disposition(filename)),
+                ]
+            )
+        except Exception as e:
+            _logger.error("Error exporting sales: %s", str(e))
             return request.make_response("Error during export", headers=[('Content-Type', 'text/plain')])

@@ -5,8 +5,8 @@
         <field name="arch" type="xml">
             <tree>
                 <header>
-                    <button name="action_export_inventory_csv" string="Export Inventory CSV" type="object"
-                            class="btn-primary"/>
+                    <button name="action_export_inventory_csv" string="Export CSV" type="object"
+                            class="btn-success"/>
                 </header>
                 <field name="name" string="Product Name"/>
                 <field name="product_price" string="Price"/>
